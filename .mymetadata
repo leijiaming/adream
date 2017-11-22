@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="Adream"
+  id="myeclipse.1494076260708"
+  context-root="/Adream"
+  j2ee-spec="5.0"
+  archive="Adream.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

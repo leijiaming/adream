@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <!-- 这里写接口? -->
+<mapper namespace="com.dream.base.dao.UserDao">
+<!-- 查询全部数据   -->
+<select id="findAll" resultType="com.dream.base.entity.User">
+select * from sys_user
+</select>
+<!-- 条件获取数据 -->
+<select id="findByPage" parameterType="String" resultType="com.dream.base.entity.User">
+select * from sys_user  where  user_id=#{userId}	
+</select>
+<!-- 条件获取数据 -->
+<select id="cheakUser" parameterType="map" resultType="int">
+select count(user_id) from sys_user  where  user_name=#{userName} 
+								<if test="mark!='0'">
+								and  password=#{pwd}
+								</if>
+</select>
+<insert id="insert" parameterType="com.dream.base.entity.User">
+		<selectKey keyProperty="user_id" resultType="java.lang.String" order="BEFORE">
+			Select UUID() From dual
+		</selectKey>
+insert into sys_user(
+		user_id,
+        user_name,
+        password,
+        state,
+        user_role,
+        remarks)
+values(
+		#{user_id},
+		#{user_name},
+		#{password},
+		#{state},
+		#{user_role},
+		#{remarks}
+		)
+</insert>
+<update id="update" parameterType="com.dream.base.entity.User">
+		update sys_user
+		<set>
+			<if test="password!=null">
+			password=#{password},
+			</if>
+			<if test="state!=null">
+			state=#{state},
+			</if>
+			<if test="user_role!=null">
+			user_role=#{user_role},
+			</if>
+			<if test="remarks!=null">
+			remarks=#{remarks},
+			</if>
+		</set>
+		where user_id = #{user_id}
+</update>
+</mapper>
